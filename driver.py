@@ -24,8 +24,8 @@ logger.info(f"env variabls: DEBUG: '{DEBUG}', SAMPLE_VARIABLE:'{os.environ.get('
 sample_event = {
     # --- Scheme Details ---
     "scheme_id": 1,
-    # "scheme_company": "Reyasat Builders",
-    # "scheme_name": "Affordable Housing Scheme",
+    "scheme_company": "Reyasat Builders",
+    "scheme_name": "Affordable Housing Scheme",
     "scheme_address": "123 Main Street, Pune",
 
     # --- Application Reference ---
@@ -80,8 +80,13 @@ sample_event = {
 
 json_string = json.dumps(sample_event)
 
-print(json)
-responce = lambda_handler(event = json_string, context=None)
+json_payload = "{\"scheme_company\":\"akfhkhdf\",\"scheme_id\":1,\"scheme_name\":\"akjdhfk\",\"scheme_address\":\"ahdkfh\",\"application_number\":2,\"application_submission_date\":\"2025-12-01\",\"applicant_name\":\"akhfkha\",\"father_or_husband_name\":\"kjafdfh\",\"dob\":\"2022-09-08\",\"mobile_number\":\"1111111111\",\"id_type\":\"adkjfk\",\"id_number\":\"1234-5678-9012\",\"pan_number\":\"ABCDE1234F\",\"permanent_address\":\"456 Residential Area, Pune\",\"permanent_address_pincode\":\"411001\",\"postal_address\":\"456 Residential Area, Pune\",\"postal_address_pincode\":\"411001\",\"annual_income\":\"3L-6L\",\"plot_category\":\"LIG\",\"registration_fees\":20000,\"processing_fees\":500,\"total_payable_amount\":21500,\"payment_mode\":\"DD\",\"payment_status\":\"Paid\",\"dd_id_or_transaction_id\":\"DD12345\",\"dd_date_or_transaction_date\":\"2025-11-15\",\"dd_amount\":21500,\"payee_account_holder_name\":\"John Doe\",\"payee_bank_name\":\"State Bank of India\",\"refund_account_holder\":\"John Doe\",\"refund_account_number\":\"987654321012\",\"refund_bank_name\":\"State Bank of India\",\"refund_bank_ifsc\":\"SBIN0001234\",\"print_date\":\"2025-12-10\"}"
+
+
+print(json_string, type(json_string))
+print(repr(json_string))
+
+responce = lambda_handler(event = json_payload, context=None)
 print(responce)
 
 

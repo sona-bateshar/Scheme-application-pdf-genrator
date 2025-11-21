@@ -1,4 +1,5 @@
 import boto3
+import os
 import logging
 from botocore.exceptions import ClientError
 from typing import Optional, Union, BinaryIO
@@ -26,7 +27,7 @@ class S3FileUploader:
         """
         self.bucket_name = bucket_name
 
-        if aws_access_key_id and aws_secret_access_key:
+        if os.environ.get('DEBUG', 'True').lower() == 'true':
             # Local mode: use provided credentials
             self.s3_client = boto3.client(
                 's3',
