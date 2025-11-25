@@ -151,8 +151,9 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("MOBILE NUMBER", data['mobile_number']),
         create_data_row("ID TYPE", data['id_type']),
         create_data_row("ID NUMBER", data['id_number']),
-        create_data_row("PAN NUMBER", data['pan_number']),
-        create_data_row("ADDRESS", f"{data['permanent_address']}, {data['permanent_address_pincode']}"),
+        create_data_row("AADHAR NUMBER", data['aadhar_number']),
+        create_data_row("POSTAL ADDRESS", f"{data['postal_address']}, {data['postal_address_pincode']}"),
+        create_data_row("PERMANENT ADDRESS", f"{data['permanent_address']}, {data['permanent_address_pincode']}"),
     ]
     
     applicant_table = Table(applicant_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
@@ -185,9 +186,9 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("PAYMENT MODE", data['payment_mode']),
         create_data_row("TRANSACTION/DD DATE", data['dd_date_or_transaction_date']),
         create_data_row("TRANSACTION/DD NUMBER", data['dd_id_or_transaction_id']),
-        create_data_row("TRANSACTION AMOUNT/DD AMOUNT", f"Rs. {data['dd_amount']:,.2f}"),
-        create_data_row("ACCOUNT HOLDER NAME", data['payee_account_holder_name']),
-        create_data_row("BANK NAME", data['payee_bank_name']),
+        create_data_row("TRANSACTION/DD AMOUNT", f"Rs. {data['dd_amount_or_transaction_amount']:,.2f}"),
+        create_data_row("ACCOUNT HOLDER NAME", data['payer_account_holder_name']),
+        create_data_row("BANK NAME", data['payer_bank_name']),
     ]
 
     payment_table = Table(payment_data, colWidths=[doc.width * 0.35, doc.width * 0.65])

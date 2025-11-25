@@ -88,7 +88,7 @@ class EventValidator:
         self.validate_string(event.get('mobile_number'), 'mobile_number')
         self.validate_string(event.get('id_type'), 'id_type')
         self.validate_string(event.get('id_number'), 'id_number')
-        self.validate_string(event.get('pan_number'), 'pan_number')
+        self.validate_string(event.get('aadhar_number'), 'aadhar_number')
         
         # Address Details
         self.validate_string(event.get('permanent_address'), 'permanent_address')
@@ -108,15 +108,15 @@ class EventValidator:
         self.validate_string(event.get('payment_status'), 'payment_status')
         self.validate_string(event.get('dd_id_or_transaction_id'), 'dd_id_or_transaction_id')
         self.validate_date(event.get('dd_date_or_transaction_date'), 'dd_date_or_transaction_date')
-        self.validate_number(event.get('dd_amount'), 'dd_amount', 0)
-        self.validate_string(event.get('payee_account_holder_name'), 'payee_account_holder_name')
-        self.validate_string(event.get('payee_bank_name'), 'payee_bank_name')
+        self.validate_number(event.get('dd_amount_or_transaction_amount'), 'dd_amount_or_transaction_amount', 0)
+        self.validate_string(event.get('payer_account_holder_name'), 'payer_account_holder_name')
+        self.validate_string(event.get('payer_bank_name'), 'payer_bank_name')
 
         # --- Refund Details ---
-        self.validate_string(event.get('refund_account_holder'), 'refund_account_holder')
-        self.validate_string(event.get('refund_account_number'), 'refund_account_number')
-        self.validate_string(event.get('refund_bank_name'), 'refund_bank_name')
-        self.validate_string(event.get('refund_bank_ifsc'), 'refund_bank_ifsc')
+        self.validate_string(event.get('applicant_account_holder_name'), 'applicant_account_holder_name')
+        self.validate_string(event.get('applicant_account_number'), 'applicant_account_number')
+        self.validate_string(event.get('applicant_bank_name'), 'applicant_bank_name')
+        self.validate_string(event.get('applicant_bank_ifsc'), 'applicant_bank_ifsc')
         
         # # --- HTML fields (optional sanitization) ---
         # self.validate_string(event.get('logo_html', ''), 'logo_html', max_length=5000)
