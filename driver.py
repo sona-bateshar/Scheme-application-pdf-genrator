@@ -1,7 +1,3 @@
-    
-
-
-
 import os
 import logging
 logger = logging.getLogger()
@@ -42,7 +38,7 @@ sample_event = {
     "aadhar_number": "ABCDE1234F",
 
     # --- Address Details ---
-    "permanent_address": "456 Residential Area, Pune",
+    "permanent_address": "F3-303\nRohan Abhilasha, Wagholi",
     "permanent_address_pincode": "411001",
     "postal_address": "456 Residential Area, Pune",
     "postal_address_pincode": "411001",
@@ -50,6 +46,7 @@ sample_event = {
     # --- Income & Category ---
     "annual_income": '3L-6L',
     "plot_category": "LIG",
+    "sub_category": "Some Subcategory",
     "registration_fees": 20000,
     "processing_fees": 500,
     "total_payable_amount": 21500,
@@ -80,7 +77,7 @@ sample_event = {
 
 json_payload = json.dumps(sample_event)
 
-# json_payload = "{\"scheme_company\":\"akfhkhdf\",\"scheme_id\":1,\"scheme_name\":\"akjdhfk\",\"scheme_address\":\"ahdkfh\",\"application_number\":2,\"application_submission_date\":\"2025-12-01\",\"applicant_name\":\"akhfkha\",\"father_or_husband_name\":\"kjafdfh\",\"dob\":\"2022-09-08\",\"mobile_number\":\"1111111111\",\"id_type\":\"adkjfk\",\"id_number\":\"1234-5678-9012\",\"aadhar_number\":\"ABCDE1234F\",\"permanent_address\":\"456 Residential Area, Pune\",\"permanent_address_pincode\":\"411001\",\"postal_address\":\"456 Residential Area, Pune\",\"postal_address_pincode\":\"411001\",\"annual_income\":\"3L-6L\",\"plot_category\":\"LIG\",\"registration_fees\":20000,\"processing_fees\":500,\"total_payable_amount\":21500,\"payment_mode\":\"DD\",\"payment_status\":\"Paid\",\"dd_id_or_transaction_id\":\"DD12345\",\"dd_date_or_transaction_date\":\"2025-11-15\",\"dd_amount_or_transaction_amount\":21500,\"payer_account_holder_name\":\"John Doe\",\"payer_bank_name\":\"State Bank of India\",\"applicant_account_holder_name\":\"John Doe\",\"applicant_account_number\":\"987654321012\",\"applicant_bank_name\":\"State Bank of India\",\"applicant_bank_ifsc\":\"SBIN0001234\",\"print_date\":\"2025-12-10\"}"
+# json_payload = "{\"scheme_company\":\"akfhkhdf\",\"scheme_id\":1,\"scheme_name\":\"akjdhfk\",\"scheme_address\":\"ahdkfh\",\"application_number\":2,\"application_submission_date\":\"2025-12-01\",\"applicant_name\":\"akhfkha\",\"father_or_husband_name\":\"kjafdfh\",\"dob\":\"2022-09-08\",\"mobile_number\":\"1111111111\",\"id_type\":\"Aadhar\",\"id_number\":\"1234-5678-9012\",\"aadhar_number\":\"ABCDE1234F\",\"permanent_address\":\"F3-303\\nRohan Abhilasha, Wagholi\",\"permanent_address_pincode\":\"411001\",\"postal_address\":\"456 Residential Area, Pune\",\"postal_address_pincode\":\"411001\",\"annual_income\":\"3L-6L\",\"plot_category\":\"LIG\",\"registration_fees\":20000,\"processing_fees\":500,\"total_payable_amount\":21500,\"payment_mode\":\"DD\",\"payment_status\":\"Paid\",\"dd_id_or_transaction_id\":\"DD12345\",\"dd_date_or_transaction_date\":\"2025-11-15\",\"dd_amount_or_transaction_amount\":21500,\"payer_account_holder_name\":\"John Doe\",\"payer_bank_name\":\"State Bank of India\",\"applicant_account_holder_name\":\"John Doe\",\"applicant_account_number\":\"987654321012\",\"applicant_bank_name\":\"State Bank of India\",\"applicant_bank_ifsc\":\"SBIN0001234\",\"print_date\":\"2025-12-10\"}"
 
 
 responce = lambda_handler(event = json_payload, context=None)
@@ -106,8 +103,9 @@ print(responce)
     "permanent_address_pincode": "411001",
     "postal_address": "456 Residential Area, Pune",
     "postal_address_pincode": "411001",
-    "annual_income": '3L-6L',
+    "annual_income": '3Lakhs-6Lakhs',
     "plot_category": "LIG",
+    "sub_category": "Some Subcategory",
     "registration_fees": 20000,
     "processing_fees": 500,
     "total_payable_amount": 21500,

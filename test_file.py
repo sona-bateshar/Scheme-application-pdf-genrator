@@ -1,12 +1,13 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
-from reportlab.platypus import Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import HexColor
+
 
 def add_header_section(story, data):
     styles = getSampleStyleSheet()
@@ -149,11 +150,13 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("FATHER/HUSBAND NAME", data['father_or_husband_name']),
         create_data_row("DATE OF BIRTH", data['dob']),
         create_data_row("MOBILE NUMBER", data['mobile_number']),
-        create_data_row("ID TYPE", data['id_type']),
-        create_data_row("ID NUMBER", data['id_number']),
+        # create_data_row("ID TYPE", data['id_type']),
+        create_data_row("ID NUMBER", f"{data['id_type']}: {data['id_number']}" ),
         create_data_row("AADHAR NUMBER", data['aadhar_number']),
         create_data_row("POSTAL ADDRESS", f"{data['postal_address']}, {data['postal_address_pincode']}"),
-        create_data_row("PERMANENT ADDRESS", f"{data['permanent_address']}, {data['permanent_address_pincode']}"),
+        # create_data_row("PERMANENT ADDRESS", f"{data['permanent_address']}, {data['permanent_address_pincode']}"),
+        create_data_row("ACCOUNT NUMBER", data['applicant_account_number']),
+        create_data_row("IFSC CODE", data['applicant_bank_ifsc']),
     ]
     
     applicant_table = Table(applicant_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
@@ -168,6 +171,7 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
     income_data = [
         create_data_row("ANNUAL INCOME RANGE", data['annual_income']),
         create_data_row("PLOT CATEGORY", data['plot_category']),
+        create_data_row("SUB CATEGORY", data.get('sub_category', 'N/A')),
         create_data_row("REGISTRATION FEES", f"Rs. {data['registration_fees']:,.2f}"),
         create_data_row("PROCESSING FEES", f"Rs. {data['processing_fees']:,.2f}"),
         create_data_row("TOTAL PAYABLE AMOUNT", f"Rs. {data['total_payable_amount']:,.2f}"),
@@ -196,9 +200,11 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
     story.append(payment_table)
     story.append(Spacer(1, 24))
 
-    # --- 7. Footer ---
+    
+    # # --- 7. Footer ---
     footer_text = f"Printed: {data['print_date']}"
     story.append(Paragraph(footer_text, styles['Normal']))
+
 
     # 8. Build the document and return bytes
     doc.build(story)

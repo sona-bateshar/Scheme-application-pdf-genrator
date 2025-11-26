@@ -1,7 +1,13 @@
+test/*
+bin/
+test/
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+
+
 
 # Environments
 env/
@@ -67,3 +73,4 @@ settings_dev.py
 *.bak
 *.swap
 *.tmp
+

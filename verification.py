@@ -25,7 +25,7 @@ class EventValidator:
             raise ValueError(f"Field '{field_name}' exceeds max length of {max_length}")
         
         # Allow only letters, numbers, basic punctuation, and optionally spaces
-        pattern = r'^[a-zA-Z0-9@.,&()\-/_]*$' if not allow_spaces else r'^[a-zA-Z0-9 @.,&()\-/_]*$'
+        pattern = r'^[a-zA-Z0-9@.,&()\-/_\n]*$' if not allow_spaces else r'^[a-zA-Z0-9 @.,&()\-/_\n]*$'
         
         if not re.match(pattern, value):
             raise ValueError(f"Field '{field_name}' contains invalid characters")
