@@ -30,6 +30,10 @@ class application_pdf_generator:
             content_type='application/pdf', 
             metadata={'uploaded_by': 'lambda_function'}
         )
+
+        # # write in local for testing
+        # with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "test/output.pdf"), "wb") as f:
+        #     f.write(pdf_content)
         
         
         return {

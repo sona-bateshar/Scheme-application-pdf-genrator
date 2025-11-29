@@ -7,7 +7,22 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import HexColor
+from reportlab.platypus import Flowable
 
+from reportlab.platypus import HRFlowable
+from reportlab.lib.colors import HexColor
+
+class HorizontalLine(Flowable):
+    def __init__(self, thickness=1, color="#1f2937"):
+        Flowable.__init__(self)
+        self.thickness = thickness
+        self.color = HexColor(color)
+
+    def draw(self):
+        self.canv.setStrokeColor(self.color)
+        self.canv.setLineWidth(self.thickness)
+        width = self.canv._pagesize[0] - self.canv.leftMargin - self.canv.rightMargin
+        self.canv.line(0, 0, width, 0)
 
 def add_header_section(story, data):
     styles = getSampleStyleSheet()
@@ -64,25 +79,27 @@ def add_header_section(story, data):
     # Combine into a 2-column table
     header_table = Table(
         [[left_column, right_column]],
-        colWidths=[350, 150]
+        colWidths=["70%", "30%"]
     )
     header_table.setStyle(TableStyle([
         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
     ]))
 
     story.append(header_table)
     story.append(Spacer(1, 12))
 
-    # ---------- Bottom Separator Line ----------
-    line = Table(
-        [[""]],
-        colWidths=[500],
-        style=[
-            ('LINEBELOW', (0, 0), (-1, -1), 1, HexColor("#1f2937"))
-        ]
+
+    line = HRFlowable(
+        width="100%",
+        thickness=1,
+        color=HexColor("#1f2937"),
+        spaceBefore=0,
+        spaceAfter=0
     )
+
     story.append(line)
-    story.append(Spacer(1, 12))
 
 
 
@@ -159,7 +176,8 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("IFSC CODE", data['applicant_bank_ifsc']),
     ]
     
-    applicant_table = Table(applicant_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
+    # applicant_table = Table(applicant_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
+    applicant_table = Table(applicant_data, colWidths=["35%", "65%"])
     applicant_table.setStyle(section_style)
     story.append(applicant_table)
     story.append(Spacer(1, 12))
@@ -177,7 +195,7 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("TOTAL PAYABLE AMOUNT", f"Rs. {data['total_payable_amount']:,.2f}"),
     ]
 
-    income_table = Table(income_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
+    income_table = Table(income_data, colWidths=["35%", "65%"])
     income_table.setStyle(section_style)
     story.append(income_table)
     story.append(Spacer(1, 12))
@@ -195,14 +213,25 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
         create_data_row("BANK NAME", data['payer_bank_name']),
     ]
 
-    payment_table = Table(payment_data, colWidths=[doc.width * 0.35, doc.width * 0.65])
+    payment_table = Table(payment_data, colWidths=["35%", "65%"])
     payment_table.setStyle(section_style)
     story.append(payment_table)
-    story.append(Spacer(1, 24))
+    story.append(Spacer(1, 12))
 
-    
+    # # ---------- Bottom Separator Line ----------
+    # line = HRFlowable(
+    #     width="100%",
+    #     thickness=1,
+    #     color=HexColor("#1f2937"),
+    #     spaceBefore=0,
+    #     spaceAfter=0
+    # )
+
+    # story.append(line)
+
     # # --- 7. Footer ---
     footer_text = f"Printed: {data['print_date']}"
+    footer_text = f"Note: It is not mandatory to submit a copy of the form at the office. In case the payment is made via Demand Draft, it must be submitted to the company office within two days from the final date of application submission."
     story.append(Paragraph(footer_text, styles['Normal']))
 
 
