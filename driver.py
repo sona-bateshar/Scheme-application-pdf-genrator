@@ -18,6 +18,7 @@ if DEBUG:
 logger.info(f"env variabls: DEBUG: '{DEBUG}', SAMPLE_VARIABLE:'{os.environ.get('SAMPLE_VARIABLE', 'could not fatch the value')}'")
 
 sample_event = {
+    "client_name": "bhumija",
     # --- Scheme Details ---
     "scheme_id": 1,
     "scheme_company": "Reyasat Builders",
