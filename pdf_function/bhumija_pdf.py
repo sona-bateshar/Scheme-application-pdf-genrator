@@ -231,7 +231,9 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
 
     # # --- 7. Footer ---
     footer_text = f"Printed: {data['print_date']}"
-    footer_text = f"Note: Demand Draft must be submitted to the company office within four days from the final date of application submission."
+    footer_text = f"Note: Submit DD and application form at company address \
+        (Sundar Vihar Colony, Plot No. 208, Kalwar Rd, opposite Takia Ki Chouki Power House, \
+            Jagdamba Nagar, Harnathapura, Jhotwara, Jaipur, Rajasthan 302012)"
     story.append(Paragraph(footer_text, styles['Normal']))
 
 

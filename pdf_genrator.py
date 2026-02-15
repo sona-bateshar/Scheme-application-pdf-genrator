@@ -31,18 +31,19 @@ class application_pdf_generator:
         # write in s3
         file_path = f"applications/{scheme_id}/acknowledge_pdfs/Acknowledgement_{scheme_id}_{application_number}{ext}"
 
-        uploader = S3FileUploader(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME , AWS_ACCESS_KEY_ID,  AWS_SECRET_ACCESS_KEY)
-        result = uploader.upload_file(
-            file_content=pdf_content,
-            file_path=file_path,
-            content_type='application/pdf', 
-            metadata={'uploaded_by': 'lambda_function'}
-        )
-
-        # # write in local for testing
-        # with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "test/output.pdf"), "wb") as f:
-        #     f.write(pdf_content)
-        # result = None
+        if os.environ.get('DEBUG', 'True') == 'False':
+            uploader = S3FileUploader(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME , AWS_ACCESS_KEY_ID,  AWS_SECRET_ACCESS_KEY)
+            result = uploader.upload_file(
+                file_content=pdf_content,
+                file_path=file_path,
+                content_type='application/pdf', 
+                metadata={'uploaded_by': 'lambda_function'}
+            )
+        else:
+            # write in local for testing
+            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "test/output.pdf"), "wb") as f:
+                f.write(pdf_content)
+            result = None
         
         
         return {
