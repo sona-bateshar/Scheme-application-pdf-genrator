@@ -232,10 +232,7 @@ def generate_acknowledgement_pdf(data: dict) -> bytes:
     # # --- 7. Footer ---
     footer_text = f"Printed: {data['print_date']}"
     footer_text = (
-        "* Demand Draft should be made in the name of \"Priya Construction And Services\" "
-        "payable at Ajmer. <br/>"  # <--- Use <br/> here
-        "** Details along with hard copy of Form should be deposited within 4 days from "
-        "Filing Application at Company's <br/>"
+        "Note: It is not mandatory to submit a copy of the form at the office. In case the payment is made via Demand Draft, it must be submitted to the company office within two days from the final date of application submission.<br/>"
         "Address:- Panchwati Block-A Jaipur Road, Om Toyota Showroom Ke "
         "Opposite Side, Ladpura Puliya, Googhra, Ajmer-305023."
     )
